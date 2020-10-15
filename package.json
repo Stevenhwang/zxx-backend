@@ -9,8 +9,10 @@
   "author": "zed",
   "license": "ISC",
   "dependencies": {
-    "koa": "2.13.0",
-    "@koa/router": "9.4.0",
-    "koa-bodyparser": "4.3.0"
+    "@koa/router": "^9.4.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
   }
 }
