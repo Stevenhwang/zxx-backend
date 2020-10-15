@@ -1,11 +1,14 @@
+const user = require('../models/user');
+User = user.User
+
 var login = async (ctx) => {
-    var name = ctx.params.name;
+    let users = await User.findAll();
     ctx.response.body = {
         code: 0,
-        msg: name
+        msg: JSON.stringify(users)
     };
 };
 
 module.exports = {
-    'GET /hello/:name': login
+    'GET /': login
 };
