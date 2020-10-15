@@ -1,0 +1,15 @@
+{
+  "name": "koa_project",
+  "version": "1.0.0",
+  "description": "a koa project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zed",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "2.13.0"
+  }
+}
