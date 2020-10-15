@@ -1,8 +1,11 @@
-var fn_hello = async (ctx, next) => {
+var login = async (ctx) => {
     var name = ctx.params.name;
-    ctx.response.body = `<h1>Hello, ${name}!</h1>`;
+    ctx.response.body = {
+        code: 0,
+        msg: name
+    };
 };
 
 module.exports = {
-    'GET /hello/:name': fn_hello
+    'GET /hello/:name': login
 };
