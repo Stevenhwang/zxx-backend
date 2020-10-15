@@ -1,4 +1,7 @@
 const Koa = require('koa');
+const bodyParser = require("koa-bodyparser");
+const router = require("./router");
+
 const app = new Koa();
 
 // logger
@@ -16,8 +19,8 @@ app.use(async (ctx, next) => {
     ctx.set('X-Response-Time', `${ms}ms`);
   });
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+app.use(bodyParser());
+app.use(router());
 
 app.listen(3000);
+console.log('app started at port 3000...');
