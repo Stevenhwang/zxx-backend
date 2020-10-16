@@ -7,12 +7,12 @@ let login = async (ctx) => {
     let password = ctx.request.body.password || '';
     let user = await User.findOne({ where: { username: username } });
     if (user === null) {
-        ctx.response.body = {
+        ctx.body = {
             code: 1,
             msg: '用户名错误！'
         };
     } else if (user.password != password) {
-        ctx.response.body = {
+        ctx.body = {
             code: 2,
             msg: '密码错误！'
         };
@@ -21,7 +21,7 @@ let login = async (ctx) => {
             username: username
         }
         const token = jwt.sign(userInfo, 'secret', {expiresIn: '1d'})
-        ctx.response.body = {
+        ctx.body = {
             code: 0,
             token: token,
             msg: '登录成功！'
