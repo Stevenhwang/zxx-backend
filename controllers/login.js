@@ -1,5 +1,5 @@
 const user = require('../models/user');
-User = user.User
+const User = user.User
 
 let login = async (ctx) => {
     let username = ctx.request.body.username || '';
