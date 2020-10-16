@@ -8,7 +8,7 @@ const User = sequelize.define('User', {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    usename: {
+    username: {
       type: DataTypes.STRING,
     },
     password: {
@@ -18,8 +18,13 @@ const User = sequelize.define('User', {
     tableName: 'users'
 });
 
+// 初始化用户表
 (async () => {
-  User.sync({ force: true });
+  await User.sync({ force: false });
+  let admin = await User.findByPk(1);
+  if (admin === null) {
+    admin = await User.create({ username: "admin", password: "123qwe" });
+  }
  })();
 
 module.exports = {
