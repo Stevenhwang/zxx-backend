@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const user = require('../models/user');
 const User = user.User
 
@@ -15,9 +16,14 @@ let login = async (ctx) => {
             code: 2,
             msg: '密码错误！'
         };
-    } else { 
+    } else {
+        const userInfo = {
+            username: username
+        }
+        const token = jwt.sign(userInfo, 'secret', {expiresIn: '1d'})
         ctx.response.body = {
             code: 0,
+            token: token,
             msg: '登录成功！'
         };
     }
