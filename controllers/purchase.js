@@ -1,17 +1,13 @@
 const material = require('../models/material');
 const MaterialType = material.MaterialType;
 
-let getMaterialTypes = async (ctx) => {
+let getMaterialTypes = async (ctx) => {};
 
-};
+let createMaterialType = async (ctx) => {};
 
-let createMaterialType = async (ctx) => {
+let updateMaterialType = async (ctx) => {};
 
-};
-
-let updateMaterialType = async (ctx) => { };
-
-let deleteMaterialType = async (ctx) => { };
+let deleteMaterialType = async (ctx) => {};
 
 module.exports = {
     'GET /material_types': getMaterialTypes,
