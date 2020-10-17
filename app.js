@@ -28,7 +28,9 @@ app.use(async (ctx, next) => {
     let token = ctx.request.headers['x-token']
     if (token) {
       try {
-        jwt.verify(token, 'secret')
+        let decoded = jwt.verify(token, 'secret');
+        //set ctx
+        ctx.set('username') = decoded.username
         await next()
       } catch (err) {
         ctx.body = {code: 3, msg: '非法token!'}
