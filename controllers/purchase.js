@@ -21,12 +21,18 @@ let createMaterialType = async (ctx) => {
             code: 1,
             msg: '请输入材料名称！',
         };
-    } else {
-        let materialType = await MaterialType.create({ name: name })
+    }
+    let tmp = await MaterialType.findOne({ name: name })
+    if (tmp) {
         ctx.body = {
+            code: 1,
+            msg: '材料名称重复！'
+        }
+    }
+    let materialType = await MaterialType.create({ name: name })
+    ctx.body = {
             code: 0,
             msg: `材料类别${materialType.name}创建成功！`
-        }
     }
 };
 
