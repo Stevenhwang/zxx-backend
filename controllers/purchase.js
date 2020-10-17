@@ -57,7 +57,7 @@ let updateMaterialType = async (ctx) => {
         if (name === tmp.name) {
             ctx.body = {
                 code: 1,
-                msg: '您输入的材料名称跟之前一样！'
+                msg: '您输入的材料名称已存在！'
             }
         } else {
             materialType.name = name
