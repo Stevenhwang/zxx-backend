@@ -22,7 +22,7 @@ let createMaterialType = async (ctx) => {
             msg: '请输入材料名称！',
         };
     }
-    let tmp = await MaterialType.findOne({ name: name })
+    let tmp = await MaterialType.findOne({ where: { name: name } })
     if (tmp) {
         ctx.body = {
             code: 1,
@@ -58,8 +58,8 @@ let updateMaterialType = async (ctx) => {
             msg: '请输入更新后的材料名称！',
         };
     }
-    let tmp = await MaterialType.findOne({ name: name });
-    if (name === materialType.name) {
+    let tmp = await MaterialType.findOne({ where: { name: name } })
+    if (name === tmp.name) {
         ctx.body = {
             code: 1,
             msg: '您输入的材料名称跟之前一样！'
