@@ -29,6 +29,28 @@ let login = async (ctx) => {
     }
 };
 
+let getUserInfo = async (ctx) => {
+    let token = ctx.query.token
+    if (token) {
+        ctx.body = {
+            code: 0,
+            roles: ['admin'],
+            introduction: 'I am a super administrator',
+            avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+            name: 'admin'
+        }
+    }
+}
+
+let logout = async (ctx) => {
+    ctx.body = {
+        code: 0,
+        msg: '登出成功！'
+    }
+}
+
 module.exports = {
-    'POST /login': login
+    'POST /login': login,
+    'GET /userInfo': getUserInfo,
+    'POST /logout': logout
 };
