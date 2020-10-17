@@ -54,7 +54,7 @@ let updateMaterialType = async (ctx) => {
         };
     } else {
         let tmp = await MaterialType.findOne({ where: { name: name } })
-        if (name === tmp.name) {
+        if (tmp) {
             ctx.body = {
                 code: 1,
                 msg: '您输入的材料名称已存在！'
