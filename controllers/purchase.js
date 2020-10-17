@@ -21,77 +21,69 @@ let createMaterialType = async (ctx) => {
             code: 1,
             msg: '请输入材料名称！',
         };
-    }
-    let tmp = await MaterialType.findOne({ where: { name: name } })
-    if (tmp) {
-        ctx.body = {
-            code: 1,
-            msg: '材料名称重复！'
+    } else {
+        let tmp = await MaterialType.findOne({ where: { name: name } })
+        if (tmp) {
+            ctx.body = {
+                code: 1,
+                msg: '材料名称重复！'
+            }
+        } else {
+            let materialType = await MaterialType.create({ name: name })
+            ctx.body = {
+                code: 0,
+                msg: `材料类别${materialType.name}创建成功！`
+            }
         }
-    }
-    let materialType = await MaterialType.create({ name: name })
-    ctx.body = {
-            code: 0,
-            msg: `材料类别${materialType.name}创建成功！`
-    }
+    } 
 };
 
 let updateMaterialType = async (ctx) => {
     let id = ctx.params.id
     let name = ctx.request.body.name
-    if (!id) {
-        ctx.body = {
-            code: 1,
-            msg: '请提供ID信息！'
-        };
-    }
     let materialType = await MaterialType.findByPk(id);
     if (materialType === null) {
         ctx.body = {
             code: 1,
             msg: '您提供的ID有误！'
         };
-    }
-    if (!name) {
+    } else if (!name) {
         ctx.body = {
             code: 1,
             msg: '请输入更新后的材料名称！',
         };
-    }
-    let tmp = await MaterialType.findOne({ where: { name: name } })
-    if (name === tmp.name) {
-        ctx.body = {
-            code: 1,
-            msg: '您输入的材料名称跟之前一样！'
+    } else {
+        let tmp = await MaterialType.findOne({ where: { name: name } })
+        if (name === tmp.name) {
+            ctx.body = {
+                code: 1,
+                msg: '您输入的材料名称跟之前一样！'
+            }
+        } else {
+            materialType.name = name
+            await materialType.save();
+            ctx.body = {
+            code: 0,
+            msg: '材料名称修改成功！'
+            }
         }
-    }
-    materialType.name = name
-    await materialType.save();
-    ctx.body = {
-        code: 0,
-        msg: '材料名称修改成功！'
     }
 };
 
 let deleteMaterialType = async (ctx) => {
     let id = ctx.params.id
-    if (!id) {
-        ctx.body = {
-            code: 1,
-            msg: '请提供ID信息！'
-        };
-    }
     let materialType = await MaterialType.findByPk(id);
     if (materialType === null) {
         ctx.body = {
             code: 1,
             msg: '您提供的ID有误！'
         };
-    }
-    await materialType.destroy()
-    ctx.body = {
-        code: 0,
-        msg: '删除成功！'
+    } else {
+        await materialType.destroy()
+        ctx.body = {
+            code: 0,
+            msg: '删除成功！'
+        }
     }
 };
 

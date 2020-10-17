@@ -33,6 +33,7 @@ app.use(async (ctx, next) => {
         ctx.set('username', decoded.username)
         await next()
       } catch (err) {
+        console.log(err)
         ctx.body = {code: 3, msg: '非法token!'}
       }
     } else {
