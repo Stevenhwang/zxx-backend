@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const User = user.User
 
@@ -19,8 +19,8 @@ let login = async (ctx) => {
     } else {
         const userInfo = {
             username: username
-        }
-        const token = jwt.sign(userInfo, 'secret', {expiresIn: '1d'})
+        };
+        const token = jwt.sign(userInfo, 'secret', { expiresIn: '1d' });
         ctx.body = {
             code: 0,
             token: token,
