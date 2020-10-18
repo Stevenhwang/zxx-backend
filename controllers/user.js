@@ -50,7 +50,7 @@ let logout = async (ctx) => {
 }
 
 let resetPassword = async (ctx) => {
-    let originPass = ctx.request.body.originPass
+    let originalPass = ctx.request.body.originalPass
     let pass = ctx.request.body.pass
     let checkPass = ctx.request.body.checkPass
     let user = await User.findOne({ where: { username: 'admin' } });
@@ -59,7 +59,7 @@ let resetPassword = async (ctx) => {
             code: 1,
             msg: '新密码和二次确认密码不一致！'
         };
-    } else if (user.password != originPass) {
+    } else if (user.password != originalPass) {
         ctx.body = {
             code: 2,
             msg: '原始密码错误！'
