@@ -52,7 +52,7 @@ let logout = async (ctx) => {
 let resetPassword = async (ctx) => {
     let originPass = ctx.request.body.originPass
     let pass = ctx.request.body.pass
-    let checkPass = ctx.request.body.pass
+    let checkPass = ctx.request.body.checkPass
     let user = await User.findOne({ where: { username: 'admin' } });
     if (pass != checkPass) { 
         ctx.body = {
