@@ -4,8 +4,16 @@ const MaterialType = material.MaterialType;
 let getMaterialTypes = async (ctx) => {
     let page = ctx.query.page || 1
     let limit = ctx.query.limit || 15
-    materialTypes = await MaterialType.findAll({ limit: limit, offset: (page - 1) * limit });
-    total = await MaterialType.count()
+    let search = ctx.query.search
+    let materialTypes = []
+    let total = 0
+    if (search) {
+        materialTypes = await MaterialType.findOne({ where: { name: search }, limit: limit, offset: (page - 1) * limit })
+        total = 1
+    } else {
+        materialTypes = await MaterialType.findAll({ limit: limit, offset: (page - 1) * limit });
+        total = await MaterialType.count()
+    }
     ctx.body = {
         code: 0,
         msg: '获取成功！',

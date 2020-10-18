@@ -4,8 +4,16 @@ const ProductType = product.ProductType
 let getProductTypes = async (ctx) => {
     let page = ctx.query.page || 1
     let limit = ctx.query.limit || 15
-    productTypes = await ProductType.findAll({ limit: limit, offset: (page - 1) * limit });
-    total = await ProductType.count()
+    let search = ctx.query.search
+    let productTypes = []
+    let total = 0
+    if (search) {
+        productTypes = await ProductType.findOne({ where: { name: search }, limit: limit, offset: (page - 1) * limit })
+        total = 1
+    } else {
+        productTypes = await ProductType.findAll({ limit: limit, offset: (page - 1) * limit });
+        total = await ProductType.count()
+    }
     ctx.body = {
         code: 0,
         msg: '获取成功！',
