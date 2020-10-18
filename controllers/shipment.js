@@ -88,8 +88,8 @@ let deleteProductType = async (ctx) => {
 };
 
 module.exports = {
-    'GET /product_types': getProductTypes,
-    'POST /product_types': createProductType,
-    'PUT /product_types/:id': updateProductType,
-    'DELETE /product_types/:id': deleteProductType
+    'GET /productTypes': getProductTypes,
+    'POST /productTypes': createProductType,
+    'PUT /productTypes/:id': updateProductType,
+    'DELETE /productTypes/:id': deleteProductType
 };

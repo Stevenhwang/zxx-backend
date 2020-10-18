@@ -88,8 +88,8 @@ let deleteMaterialType = async (ctx) => {
 };
 
 module.exports = {
-    'GET /material_types': getMaterialTypes,
-    'POST /material_types': createMaterialType,
-    'PUT /material_types/:id': updateMaterialType,
-    'DELETE /material_types/:id': deleteMaterialType
+    'GET /materialTypes': getMaterialTypes,
+    'POST /materialTypes': createMaterialType,
+    'PUT /materialTypes/:id': updateMaterialType,
+    'DELETE /materialTypes/:id': deleteMaterialType
 };
