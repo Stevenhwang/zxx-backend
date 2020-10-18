@@ -49,8 +49,34 @@ let logout = async (ctx) => {
     }
 }
 
+let resetPassword = async (ctx) => {
+    let originPass = ctx.request.body.originPass
+    let pass = ctx.request.body.pass
+    let checkPass = ctx.request.body.pass
+    let user = await User.findOne({ where: { username: 'admin' } });
+    if (pass != checkPass) { 
+        ctx.body = {
+            code: 1,
+            msg: '新密码和二次确认密码不一致！'
+        };
+    } else if (user.password != originPass) {
+        ctx.body = {
+            code: 2,
+            msg: '原始密码错误！'
+        };
+    } else {
+        user.password = pass
+        await user.save()
+        ctx.body = {
+            code: 0,
+            msg: '修改密码成功！'
+        };
+    }
+}
+
 module.exports = {
     'POST /login': login,
     'GET /userInfo': getUserInfo,
-    'POST /logout': logout
+    'POST /logout': logout,
+    'POST /resetPassword': resetPassword
 };
