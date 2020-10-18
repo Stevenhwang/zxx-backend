@@ -8,8 +8,8 @@ let getMaterialTypes = async (ctx) => {
     let materialTypes = []
     let total = 0
     if (search) {
-        materialTypes = await MaterialType.findOne({ where: { name: search }, limit: limit, offset: (page - 1) * limit })
-        total = 1
+        materialTypes = await MaterialType.findAll({ where: { name: search }, limit: limit, offset: (page - 1) * limit })
+        total = await MaterialType.count()
     } else {
         materialTypes = await MaterialType.findAll({ limit: limit, offset: (page - 1) * limit });
         total = await MaterialType.count()
