@@ -1,5 +1,6 @@
 const material = require('../models/material');
 const MaterialType = material.MaterialType;
+const Material = material.Material;
 
 let getMaterialTypes = async (ctx) => {
     let page = ctx.query.page || 1
@@ -95,9 +96,63 @@ let deleteMaterialType = async (ctx) => {
     }
 };
 
+let getMaterials = async (ctx) => {
+    let page = ctx.query.page || 1
+    let limit = ctx.query.limit || 15
+    let search = ctx.query.search
+    let materials = []
+    let total = 0
+    if (search) {
+        materials = await Material.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
+        total = await Material.count()
+    } else {
+        materials = await Material.findAll({ limit: limit, offset: (page - 1) * limit });
+        total = await Material.count()
+    }
+    ctx.body = {
+        code: 0,
+        msg: '获取成功！',
+        data: JSON.stringify(materials),
+        total: total
+    };
+};
+
+let createMaterial = async (ctx) => {
+    let data = ctx.request.body
+    await Material.create(data)
+    ctx.body = {
+        code: 0,
+        msg: '创建成功！'
+    }
+};
+let updateMaterial = async (ctx) => {
+    let id = ctx.params.id
+    let data = ctx.request.body
+    let temp = await Material.findByPk(id);
+    await temp.update(data)
+    ctx.body = {
+        code: 0,
+        msg: '修改成功！'
+    }
+};
+
+let deleteMaterial = async (ctx) => {
+    let id = ctx.params.id
+    let temp = await Material.findByPk(id);
+    await temp.destroy()
+    ctx.body = {
+        code: 0,
+        msg: '删除成功！'
+    }
+};
+
 module.exports = {
     'GET /materialTypes': getMaterialTypes,
     'POST /materialTypes': createMaterialType,
     'PUT /materialTypes/:id': updateMaterialType,
-    'DELETE /materialTypes/:id': deleteMaterialType
+    'DELETE /materialTypes/:id': deleteMaterialType,
+    'GET /materials': getMaterials,
+    'POST /materials': createMaterial,
+    'PUT /materials/:id': updateMaterial,
+    'DELETE /materials/:id': deleteMaterial
 };

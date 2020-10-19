@@ -15,11 +15,49 @@ const MaterialType = sequelize.define('MaterialType', {
     tableName: 'material_types'
 });
 
+const Material = sequelize.define('Material', {
+  date: {
+    type: DataTypes.DATE
+  },
+  name: {
+    type: DataTypes.STRING
+  },
+  address: {
+    type: DataTypes.STRING
+  },
+  detail: {
+    type: DataTypes.STRING
+  },
+  docnum: {
+    type: DataTypes.STRING
+  },
+  price: {
+    type: DataTypes.INTEGER
+  },
+  quantity: {
+    type: DataTypes.INTEGER
+  },
+  unit: {
+    type: DataTypes.STRING
+  },
+  amount: {
+    type: DataTypes.INTEGER
+  },
+  remarks: {
+    type: DataTypes.TEXT
+  },
+}, {
+  tableName: 'materials',
+  timestamps: false
+});
+
 // 初始化
 (async () => {
   await MaterialType.sync({ force: false });
+  await Material.sync({ force: false });
  })();
 
 module.exports = {
-  MaterialType
+  MaterialType,
+  Material
 };
