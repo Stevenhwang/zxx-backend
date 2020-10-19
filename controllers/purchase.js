@@ -1,6 +1,7 @@
 const material = require('../models/material');
 const MaterialType = material.MaterialType;
 const Material = material.Material;
+const { Op } = require("sequelize");
 
 let getMaterialTypes = async (ctx) => {
     let page = ctx.query.page || 1
@@ -99,15 +100,34 @@ let deleteMaterialType = async (ctx) => {
 let getMaterials = async (ctx) => {
     let page = ctx.query.page || 1
     let limit = ctx.query.limit || 15
-    let search = ctx.query.search
+    let searchKey = ctx.query.searchKey
+    let searchValue = ctx.query.searchValue
+    const search = {searchKey: searchValue}
     let materials = []
     let total = 0
-    if (search) {
-        materials = await Material.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
-        total = await Material.count()
-    } else {
+    if (!searchKey) {
         materials = await Material.findAll({ limit: limit, offset: (page - 1) * limit });
         total = await Material.count()
+    } else if (searchKey === "date") {
+        const dateList = searchValue.split(',')
+        materials = await Material.findAll({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            },
+            limit: limit, offset: (page - 1) * limit
+        })
+        total = await Material.count({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            }
+        })
+    } else {
+        materials = await Material.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
+        total = await Material.count({ where: search })
     }
     ctx.body = {
         code: 0,
