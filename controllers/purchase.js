@@ -102,7 +102,8 @@ let getMaterials = async (ctx) => {
     let limit = ctx.query.limit || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
-    const search = {searchKey: searchValue}
+    const search = {}
+    search[searchKey] = searchValue
     let materials = []
     let total = 0
     if (!searchKey) {
