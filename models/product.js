@@ -25,6 +25,9 @@ const Sale = sequelize.define('Sale', {
   project: {
     type: DataTypes.STRING
   },
+  product: {
+    type: DataTypes.STRING
+  },
   docnum: {
     type: DataTypes.STRING
   },
@@ -62,6 +65,9 @@ const Refund = sequelize.define('Refund', {
     type: DataTypes.STRING
   },
   project: {
+    type: DataTypes.STRING
+  },
+  product: {
     type: DataTypes.STRING
   },
   docnum: {
