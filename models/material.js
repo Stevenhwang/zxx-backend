@@ -41,7 +41,10 @@ const Material = sequelize.define('Material', {
     type: DataTypes.STRING
   },
   amount: {
-    type: DataTypes.INTEGER
+    type: DataTypes.VIRTUAL,
+    get () {
+      return this.price * this.quantity
+    }
   },
   remarks: {
     type: DataTypes.TEXT
