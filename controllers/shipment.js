@@ -1,7 +1,8 @@
 const product = require('../models/product');
-const ProductType = product.ProductType
-const Sale = product.Sale
-const Refund = product.Refund
+const ProductType = product.ProductType;
+const Sale = product.Sale;
+const Refund = product.Refund;
+const { Op } = require("sequelize");
 
 let getProductTypes = async (ctx) => {
     let page = ctx.query.page || 1
@@ -167,6 +168,76 @@ let deleteSale = async (ctx) => {
     }
 };
 
+let getRefunds = async (ctx) => {
+    let page = ctx.query.page || 1
+    let limit = ctx.query.limit || 15
+    let searchKey = ctx.query.searchKey
+    let searchValue = ctx.query.searchValue
+    const search = {}
+    search[searchKey] = searchValue
+    let refunds = []
+    let total = 0
+    if (!searchKey) {
+        refunds = await Refund.findAll({ limit: limit, offset: (page - 1) * limit });
+        total = await Refund.count()
+    } else if (searchKey === "date") {
+        const dateList = searchValue.split(',')
+        refunds = await Refund.findAll({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            },
+            limit: limit, offset: (page - 1) * limit
+        })
+        total = await Refund.count({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            }
+        })
+    } else {
+        refunds = await Refund.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
+        total = await Refund.count({ where: search })
+    }
+    ctx.body = {
+        code: 0,
+        msg: '获取成功！',
+        data: JSON.stringify(refunds),
+        total: total
+    };
+};
+
+let createRefund = async (ctx) => {
+    let data = ctx.request.body
+    await Refund.create(data)
+    ctx.body = {
+        code: 0,
+        msg: '创建成功！'
+    }
+};
+let updateRefund = async (ctx) => {
+    let id = ctx.params.id
+    let data = ctx.request.body
+    let temp = await Refund.findByPk(id);
+    await temp.update(data)
+    ctx.body = {
+        code: 0,
+        msg: '修改成功！'
+    }
+};
+
+let deleteRefund = async (ctx) => {
+    let id = ctx.params.id
+    let temp = await Refund.findByPk(id);
+    await temp.destroy()
+    ctx.body = {
+        code: 0,
+        msg: '删除成功！'
+    }
+};
+
 module.exports = {
     'GET /productTypes': getProductTypes,
     'POST /productTypes': createProductType,
@@ -175,5 +246,9 @@ module.exports = {
     'GET /sales': getSales,
     'POST /sales': createSale,
     'PUT /sales/:id': updateSale,
-    'DELETE /sales/:id': deleteSale
+    'DELETE /sales/:id': deleteSale,
+    'GET /refunds': getRefunds,
+    'POST /refunds': createRefund,
+    'PUT /refunds/:id': updateRefund,
+    'DELETE /refunds/:id': deleteRefund
 };
