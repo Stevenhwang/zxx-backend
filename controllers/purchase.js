@@ -1,6 +1,7 @@
 const material = require('../models/material');
 const MaterialType = material.MaterialType;
 const Material = material.Material;
+const Change = material.Change;
 const { Op } = require("sequelize");
 
 let getMaterialTypes = async (ctx) => {
@@ -167,6 +168,76 @@ let deleteMaterial = async (ctx) => {
     }
 };
 
+let getChanges = async (ctx) => {
+    let page = ctx.query.page || 1
+    let limit = ctx.query.limit || 15
+    let searchKey = ctx.query.searchKey
+    let searchValue = ctx.query.searchValue
+    const search = {}
+    search[searchKey] = searchValue
+    let changes = []
+    let total = 0
+    if (!searchKey) {
+        changes = await Change.findAll({ limit: limit, offset: (page - 1) * limit });
+        total = await Change.count()
+    } else if (searchKey === "date") {
+        const dateList = searchValue.split(',')
+        changes = await Change.findAll({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            },
+            limit: limit, offset: (page - 1) * limit
+        })
+        total = await Change.count({
+            where: {
+                date: {
+                    [Op.between]: [dateList[0], dateList[1]]
+                }
+            }
+        })
+    } else {
+        changes = await Change.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
+        total = await Change.count({ where: search })
+    }
+    ctx.body = {
+        code: 0,
+        msg: '获取成功！',
+        data: JSON.stringify(changes),
+        total: total
+    };
+};
+
+let createChange = async (ctx) => {
+    let data = ctx.request.body
+    await Change.create(data)
+    ctx.body = {
+        code: 0,
+        msg: '创建成功！'
+    }
+};
+let updateChange = async (ctx) => {
+    let id = ctx.params.id
+    let data = ctx.request.body
+    let temp = await Change.findByPk(id);
+    await temp.update(data)
+    ctx.body = {
+        code: 0,
+        msg: '修改成功！'
+    }
+};
+
+let deleteChange = async (ctx) => {
+    let id = ctx.params.id
+    let temp = await Change.findByPk(id);
+    await temp.destroy()
+    ctx.body = {
+        code: 0,
+        msg: '删除成功！'
+    }
+};
+
 module.exports = {
     'GET /materialTypes': getMaterialTypes,
     'POST /materialTypes': createMaterialType,
@@ -175,5 +246,9 @@ module.exports = {
     'GET /materials': getMaterials,
     'POST /materials': createMaterial,
     'PUT /materials/:id': updateMaterial,
-    'DELETE /materials/:id': deleteMaterial
+    'DELETE /materials/:id': deleteMaterial,
+    'GET /changes': getChanges,
+    'POST /changes': createChange,
+    'PUT /changes/:id': updateChange,
+    'DELETE /changes/:id': deleteChange
 };
