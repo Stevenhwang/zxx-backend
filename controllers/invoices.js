@@ -11,11 +11,12 @@ let getCancellations = async (ctx) => {
     let cancellations = []
     let total = 0
     if (!searchKey) {
-        cancellations = await Cancellation.findAll({ limit: limit, offset: (page - 1) * limit });
-        total = await Cancellation.count()
+        let results = await Cancellation.findAndCountAll({ limit: limit, offset: (page - 1) * limit });
+        cancellations = results.rows;
+        total = results.count;
     } else if (searchKey === "date") {
         const dateList = searchValue.split(',')
-        cancellations = await Cancellation.findAll({
+        let results = await Cancellation.findAndCountAll({
             where: {
                 date: {
                     [Op.between]: [dateList[0], dateList[1]]
@@ -23,16 +24,12 @@ let getCancellations = async (ctx) => {
             },
             limit: limit, offset: (page - 1) * limit
         })
-        total = await Cancellation.count({
-            where: {
-                date: {
-                    [Op.between]: [dateList[0], dateList[1]]
-                }
-            }
-        })
+        cancellations = results.rows;
+        total = results.count;
     } else {
-        cancellations = await Cancellation.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
-        total = await Cancellation.count({ where: search })
+        let results = await Cancellation.findAndCountAll({ where: search, limit: limit, offset: (page - 1) * limit })
+        cancellations = results.rows;
+        total = results.count;
     }
     ctx.body = {
         code: 0,
@@ -81,11 +78,12 @@ let getEntrytickets = async (ctx) => {
     let entrytickets = []
     let total = 0
     if (!searchKey) {
-        entrytickets = await Entryticket.findAll({ limit: limit, offset: (page - 1) * limit });
-        total = await Entryticket.count()
+        let results = await Entryticket.findAndCountAll({ limit: limit, offset: (page - 1) * limit });
+        entrytickets = results.rows;
+        total = results.count;
     } else if (searchKey === "date") {
         const dateList = searchValue.split(',')
-        entrytickets = await Entryticket.findAll({
+        let results = await Entryticket.findAndCountAll({
             where: {
                 date: {
                     [Op.between]: [dateList[0], dateList[1]]
@@ -93,16 +91,12 @@ let getEntrytickets = async (ctx) => {
             },
             limit: limit, offset: (page - 1) * limit
         })
-        total = await Entryticket.count({
-            where: {
-                date: {
-                    [Op.between]: [dateList[0], dateList[1]]
-                }
-            }
-        })
+        entrytickets = results.rows;
+        total = results.count;
     } else {
-        entrytickets = await Entryticket.findAll({ where: search, limit: limit, offset: (page - 1) * limit })
-        total = await Entryticket.count({ where: search })
+        let results = await Entryticket.findAndCountAll({ where: search, limit: limit, offset: (page - 1) * limit });
+        entrytickets = results.rows;
+        total = results.count;
     }
     ctx.body = {
         code: 0,
