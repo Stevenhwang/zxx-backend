@@ -27,6 +27,7 @@ app.use(async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+    console.log(error)
     ctx.body = {code: 5, msg: '服务器错误！'}
   }
 })
