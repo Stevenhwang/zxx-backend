@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const bodyParser = require("koa-bodyparser");
 const jwt = require('jsonwebtoken');
+const util = require('util');
+const verify = util.promisify(jwt.verify);
 const router = require("./router");
 
 const app = new Koa();
@@ -20,6 +22,15 @@ app.use(async (ctx, next) => {
     ctx.set('X-Response-Time', `${ms}ms`);
   });
 
+// catch error
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (error) {
+    ctx.body = {code: 5, msg: '服务器错误！'}
+  }
+})
+
 // jwt
 app.use(async (ctx, next) => {
   if (ctx.url === '/login') {
@@ -28,9 +39,9 @@ app.use(async (ctx, next) => {
     let token = ctx.request.headers['x-token']
     if (token) {
       try {
-        let decoded = jwt.verify(token, 'secret');
+        let decoded = await verify(token, 'secret');
         //set ctx
-        ctx.set('username', decoded.username)
+        ctx.set('username', decoded.username);
         await next()
       } catch (err) {
         console.log(err)
@@ -39,7 +50,7 @@ app.use(async (ctx, next) => {
     } else {
       ctx.body = {code: 3, msg: '没有token!'}
     }
-  } 
+  }
 })
 
 app.use(bodyParser());
