@@ -88,6 +88,12 @@ const Entryticket = sequelize.define('Entryticket', {
           return this.should - this.completed
         }
     },
+    amount: {
+      type: DataTypes.VIRTUAL,
+      get () {
+        return this.should - this.completed
+      }
+    },
     deduction: {
         type: DataTypes.INTEGER
     },
