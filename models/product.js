@@ -4,10 +4,6 @@ const { DataTypes } = require("sequelize");
 const sequelize = db.sequelize
 
 const ProductType = sequelize.define('ProductType', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
     name: {
       type: DataTypes.STRING,
     }
