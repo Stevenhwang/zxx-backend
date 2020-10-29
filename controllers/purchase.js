@@ -5,8 +5,8 @@ const Change = material.Change;
 const { Op } = require("sequelize");
 
 let getMaterialTypes = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let search = ctx.query.search
     let materialTypes = []
     let total = 0
@@ -99,8 +99,8 @@ let deleteMaterialType = async (ctx) => {
 };
 
 let getMaterials = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}
@@ -169,8 +169,8 @@ let deleteMaterial = async (ctx) => {
 };
 
 let getChanges = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}

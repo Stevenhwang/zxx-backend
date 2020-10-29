@@ -5,8 +5,8 @@ const Refund = product.Refund;
 const { Op } = require("sequelize");
 
 let getProductTypes = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let search = ctx.query.search
     let productTypes = []
     let total = 0
@@ -99,8 +99,8 @@ let deleteProductType = async (ctx) => {
 };
 
 let getSales = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}
@@ -169,8 +169,8 @@ let deleteSale = async (ctx) => {
 };
 
 let getRefunds = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}

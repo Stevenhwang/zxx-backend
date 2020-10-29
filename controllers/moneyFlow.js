@@ -2,8 +2,8 @@ const { Payment, Respay } = require('../models/moneyFlow');
 const { Op } = require("sequelize");
 
 let getPayments = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}
@@ -72,8 +72,8 @@ let deletePayment = async (ctx) => {
 };
 
 let getRespays = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}

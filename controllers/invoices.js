@@ -2,8 +2,8 @@ const { Cancellation, Entryticket } = require('../models/invoice');
 const { Op } = require("sequelize");
 
 let getCancellations = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}
@@ -69,8 +69,8 @@ let deleteCancellation = async (ctx) => {
 };
 
 let getEntrytickets = async (ctx) => {
-    let page = ctx.query.page || 1
-    let limit = ctx.query.limit || 15
+    let page = parseInt(ctx.query.page) || 1
+    let limit = parseInt(ctx.query.limit) || 15
     let searchKey = ctx.query.searchKey
     let searchValue = ctx.query.searchValue
     const search = {}
