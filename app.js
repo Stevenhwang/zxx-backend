@@ -24,7 +24,7 @@ app.use(async (ctx, next) => {
 
 // jwt
 app.use(async (ctx, next) => {
-  if (ctx.url === '/login') {
+  if (ctx.url === '/api/login') {
     await next()
   } else {
     let token = ctx.request.headers['x-token']
