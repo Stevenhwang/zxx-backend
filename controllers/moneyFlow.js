@@ -142,12 +142,12 @@ let deleteRespay = async (ctx) => {
 };
 
 module.exports = {
-    'GET /payments': getPayments,
-    'POST /payments': createPayment,
-    'PUT /payments/:id': updatePayment,
-    'DELETE /payments/:id': deletePayment,
-    'GET /respays': getRespays,
-    'POST /respays': createRespay,
-    'PUT /respays/:id': updateRespay,
-    'DELETE /respays/:id': deleteRespay
+    'GET /api/payments': getPayments,
+    'POST /api/payments': createPayment,
+    'PUT /api/payments/:id': updatePayment,
+    'DELETE /api/payments/:id': deletePayment,
+    'GET /api/respays': getRespays,
+    'POST /api/respays': createRespay,
+    'PUT /api/respays/:id': updateRespay,
+    'DELETE /api/respays/:id': deleteRespay
 };

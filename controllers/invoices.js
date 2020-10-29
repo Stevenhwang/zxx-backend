@@ -136,12 +136,12 @@ let deleteEntryticket = async (ctx) => {
 };
 
 module.exports = {
-    'GET /cancellations': getCancellations,
-    'POST /cancellations': createCancellation,
-    'PUT /cancellations/:id': updateCancellation,
-    'DELETE /cancellations/:id': deleteCancellation,
-    'GET /entrytickets': getEntrytickets,
-    'POST /entrytickets': createEntryticket,
-    'PUT /entrytickets/:id': updateEntryticket,
-    'DELETE /entrytickets/:id': deleteEntryticket
+    'GET /api/cancellations': getCancellations,
+    'POST /api/cancellations': createCancellation,
+    'PUT /api/cancellations/:id': updateCancellation,
+    'DELETE /api/cancellations/:id': deleteCancellation,
+    'GET /api/entrytickets': getEntrytickets,
+    'POST /api/entrytickets': createEntryticket,
+    'PUT /api/entrytickets/:id': updateEntryticket,
+    'DELETE /api/entrytickets/:id': deleteEntryticket
 };

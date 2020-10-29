@@ -153,5 +153,5 @@ let getDashboard = async(ctx) => {
 }
 
 module.exports = {
-    'GET /getDashboard': getDashboard
+    'GET /api/getDashboard': getDashboard
 };

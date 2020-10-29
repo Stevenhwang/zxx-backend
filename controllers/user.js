@@ -75,8 +75,8 @@ let resetPassword = async (ctx) => {
 }
 
 module.exports = {
-    'POST /login': login,
-    'GET /userInfo': getUserInfo,
-    'POST /logout': logout,
-    'POST /resetPassword': resetPassword
+    'POST /api/login': login,
+    'GET /api/userInfo': getUserInfo,
+    'POST /api/logout': logout,
+    'POST /api/resetPassword': resetPassword
 };

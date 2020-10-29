@@ -239,16 +239,16 @@ let deleteChange = async (ctx) => {
 };
 
 module.exports = {
-    'GET /materialTypes': getMaterialTypes,
-    'POST /materialTypes': createMaterialType,
-    'PUT /materialTypes/:id': updateMaterialType,
-    'DELETE /materialTypes/:id': deleteMaterialType,
-    'GET /materials': getMaterials,
-    'POST /materials': createMaterial,
-    'PUT /materials/:id': updateMaterial,
-    'DELETE /materials/:id': deleteMaterial,
-    'GET /changes': getChanges,
-    'POST /changes': createChange,
-    'PUT /changes/:id': updateChange,
-    'DELETE /changes/:id': deleteChange
+    'GET /api/materialTypes': getMaterialTypes,
+    'POST /api/materialTypes': createMaterialType,
+    'PUT /api/materialTypes/:id': updateMaterialType,
+    'DELETE /api/materialTypes/:id': deleteMaterialType,
+    'GET /api/materials': getMaterials,
+    'POST /api/materials': createMaterial,
+    'PUT /api/materials/:id': updateMaterial,
+    'DELETE /api/materials/:id': deleteMaterial,
+    'GET /api/changes': getChanges,
+    'POST /api/changes': createChange,
+    'PUT /api/changes/:id': updateChange,
+    'DELETE /api/changes/:id': deleteChange
 };

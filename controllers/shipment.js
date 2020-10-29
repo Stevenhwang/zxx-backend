@@ -239,16 +239,16 @@ let deleteRefund = async (ctx) => {
 };
 
 module.exports = {
-    'GET /productTypes': getProductTypes,
-    'POST /productTypes': createProductType,
-    'PUT /productTypes/:id': updateProductType,
-    'DELETE /productTypes/:id': deleteProductType,
-    'GET /sales': getSales,
-    'POST /sales': createSale,
-    'PUT /sales/:id': updateSale,
-    'DELETE /sales/:id': deleteSale,
-    'GET /refunds': getRefunds,
-    'POST /refunds': createRefund,
-    'PUT /refunds/:id': updateRefund,
-    'DELETE /refunds/:id': deleteRefund
+    'GET /api/productTypes': getProductTypes,
+    'POST /api/productTypes': createProductType,
+    'PUT /api/productTypes/:id': updateProductType,
+    'DELETE /api/productTypes/:id': deleteProductType,
+    'GET /api/sales': getSales,
+    'POST /api/sales': createSale,
+    'PUT /api/sales/:id': updateSale,
+    'DELETE /api/sales/:id': deleteSale,
+    'GET /api/refunds': getRefunds,
+    'POST /api/refunds': createRefund,
+    'PUT /api/refunds/:id': updateRefund,
+    'DELETE /api/refunds/:id': deleteRefund
 };
